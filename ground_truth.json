@@ -1,0 +1,14 @@
+{
+  "anomalies": [
+    {
+      "type": "error_spike",
+      "endpoint": "/api/error",
+      "description": "Simulated server errors"
+    },
+    {
+      "type": "latency_spike",
+      "endpoint": "/api/slow",
+      "description": "Slow response anomaly"
+    }
+  ]
+}
