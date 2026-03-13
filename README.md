@@ -1,5 +1,4 @@
-# aiops-laravel-monitoring
-AIOps Observability
+
 # AIOps Laravel Monitoring System
 
 ## Overview
