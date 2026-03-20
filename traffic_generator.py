@@ -1,19 +1,38 @@
 import requests
-import random
 import time
 
-urls = [
-    "http://127.0.0.1:8000/api/normal",
-    "http://127.0.0.1:8000/api/slow",
-    "http://127.0.0.1:8000/api/error"
-]
+BASE_URL = "http://127.0.0.1:8000"
 
-while True:
-    url = random.choice(urls)
+def spike_latency():
+    print("Generating latency spike...")
+    for _ in range(5):
+        try:
+            requests.get(f"{BASE_URL}/api/slow", timeout=10)
+        except Exception as e:
+            print(f"Ignored error: {e}")
+        time.sleep(0.2)
 
-    try:
-        requests.get(url)
-    except:
-        pass
+def spike_errors():
+    print("Generating error spike...")
+    for _ in range(5):
+        try:
+            requests.get(f"{BASE_URL}/api/error")
+        except Exception as e:
+            print(f"Ignored error: {e}")
+        time.sleep(0.2)
 
-    time.sleep(random.uniform(0.2,1.5))
+def spike_traffic():
+    print("Generating traffic spike...")
+    for _ in range(50):
+        try:
+            requests.get(f"{BASE_URL}/api/normal")
+        except Exception as e:
+            print(f"Ignored error: {e}")
+        time.sleep(0.05)
+
+if __name__ == "__main__":
+    print("Starting traffic generation...")
+    spike_latency()
+    spike_errors()
+    spike_traffic()
+    print("Traffic generation complete.")
